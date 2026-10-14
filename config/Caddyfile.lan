@@ -1,5 +1,11 @@
 {
 	auto_https disable_redirects
+
+	# curl (and some non-browser clients) omit SNI when the URL host is an IP
+	# literal. Without SNI, Caddy cannot select the site's certificate and
+	# aborts the handshake. Fall back to the configured LAN host so IP-literal
+	# URLs keep working for every client.
+	default_sni {$DSH_LAN_HOST}
 }
 
 https://{$DSH_LAN_HOST}:8443 {

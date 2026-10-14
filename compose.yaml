@@ -8,19 +8,33 @@ services:
         NODE_IMAGE: ${NODE_IMAGE:-docker.io/library/node:24-trixie}
         PNPM_VERSION: ${PNPM_VERSION:-10.15.1}
     image: ${DSH_IMAGE_REPOSITORY:-docker.io/runzhliu/deepseek-harness}:${DSH_IMAGE_VERSION:-0.2.1-alpha.2-r1}
+    command:
+      - web
+      - --patch
+      - /opt/deepseek-harness/web.cordis.patch.yml
+      - --no-open
+      - --trusted-host
+      - ${DSH_WEB_TRUSTED_HOST:-127.0.0.1}
+      - --trusted-host
+      - ${DSH_LAN_HOST:-127.0.0.1}
     ports:
-      - "127.0.0.1:${DSH_PORT:-3080}:3080"
-      - "127.0.0.1:${DSH_DESKTOP_PORT:-6080}:6080"
+      - "${DSH_PORT:-3080}:3080"
+      - "${DSH_DESKTOP_PORT:-6080}:6080"
     environment:
       DSH_TELEMETRY_DISABLED: "1"
       DSH_DESKTOP_ENABLED: "1"
       DSH_BROWSER_USE_ENABLED: ${DSH_BROWSER_USE_ENABLED:-1}
       DSH_WEB_RELAY_INTERFACE: ${DSH_WEB_RELAY_INTERFACE:-}
       DSH_DESKTOP_PUBLIC_PORT: ${DSH_DESKTOP_PORT:-6080}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       HOME: /workspace
     volumes:
       - dsh-home:/home/node/.dsh
       - ${DSH_WORKSPACE:-dsh-workspace}:/workspace
+      # The VS Code extension addresses DSH by host filesystem paths. Bind the
+      # host workspace at the SAME absolute path so those paths resolve inside
+      # the container. Leave unset if you do not use the extension.
+      - ${DSH_HOST_PATH:-/opt/dsh-host-path}:${DSH_HOST_PATH:-/opt/dsh-host-path}
     read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid,nodev,size=512m

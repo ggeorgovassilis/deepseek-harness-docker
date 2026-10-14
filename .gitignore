@@ -15,3 +15,6 @@ compose.local.yaml
 skills/
 test/.npm-cache/
 test/
+
+# VS Code integration (symlink to external repo)
+jabofish-vscode
