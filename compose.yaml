@@ -24,6 +24,10 @@ services:
       DSH_TELEMETRY_DISABLED: "1"
       DSH_DESKTOP_ENABLED: "1"
       DSH_BROWSER_USE_ENABLED: ${DSH_BROWSER_USE_ENABLED:-1}
+      # The relay needs exactly one interface. With an extra network attached,
+      # Docker assigns eth0/eth1 non-deterministically, so the entrypoint
+      # auto-detects the default-network interface via the default route.
+      # Set this only to override that detection.
       DSH_WEB_RELAY_INTERFACE: ${DSH_WEB_RELAY_INTERFACE:-}
       DSH_DESKTOP_PUBLIC_PORT: ${DSH_DESKTOP_PORT:-6080}
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
@@ -40,6 +44,9 @@ services:
       # host workspace at the SAME absolute path so those paths resolve inside
       # the container. Leave unset if you do not use the extension.
       - ${DSH_HOST_PATH:-/opt/dsh-host-path}:${DSH_HOST_PATH:-/opt/dsh-host-path}
+    networks:
+      - default
+      - ebay-mcp-network
     read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid,nodev,size=512m
@@ -67,3 +74,10 @@ services:
 volumes:
   dsh-home:
   dsh-workspace:
+
+networks:
+  # Pre-existing bridge shared with the eBay MCP stack. Declared external so
+  # Compose attaches to it instead of creating a new one.
+  ebay-mcp-network:
+    external: true
+    name: ebay_mcp_network

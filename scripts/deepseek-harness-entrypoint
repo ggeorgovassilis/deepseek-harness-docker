@@ -206,6 +206,14 @@ for argument in "$@"; do
 done
 
 if [ "${is_web}" = 1 ]; then
+  # Docker assigns eth0/eth1 non-deterministically when an external network is
+  # attached, but the relay must bind the interface Docker publishes ports on
+  # (the default/primary network). Auto-detect it via the default route unless
+  # DSH_WEB_RELAY_INTERFACE is set explicitly.
+  if [ -z "${DSH_WEB_RELAY_INTERFACE:-}" ] && [ -r /proc/net/route ]; then
+    DSH_WEB_RELAY_INTERFACE="$(awk '$2 == "00000000" { print $1; exit }' /proc/net/route)"
+    export DSH_WEB_RELAY_INTERFACE
+  fi
   node /opt/deepseek-harness/dsh-web-relay.cjs "$$" "$@" &
   relay_pid=$!
 fi
