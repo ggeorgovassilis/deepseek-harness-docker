@@ -81,7 +81,7 @@ runtime_contract="$(docker run --rm --entrypoint sh "${image}" -ec '
     echo "expected glibc 2.41, got ${libc_version}" >&2
     exit 1
   fi
-  for command_name in bash cc curl file git jq less make python3 rg rsync ssh tar unzip wget xz zip; do
+  for command_name in bash cc curl file gh git jq less make python3 rg rsync ssh tar unzip wget xz zip; do
     if ! command -v "${command_name}" >/dev/null 2>&1; then
       echo "required coding-agent command is missing: ${command_name}" >&2
       exit 1

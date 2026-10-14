@@ -178,6 +178,23 @@ trap handle_signal INT TERM HUP
 
 install_browser_plugins
 
+# When a GitHub token is provided, persist it to gh's config file rather than
+# relying on the environment. DSH's shell executor scrubs *TOKEN*/*KEY*/*SECRET*
+# env vars from every model shell call, so GH_TOKEN/GITHUB_TOKEN are invisible to
+# the agent's bash tool. gh and git instead read the token from $GH_CONFIG_DIR,
+# which survives the scrub and lives in the persistent dsh-home volume.
+if [ -n "${GH_TOKEN:-}" ] && command -v gh >/dev/null 2>&1; then
+  gh_config="${GH_CONFIG_DIR:-/home/node/.dsh/gh}"
+  mkdir -p "${gh_config}"
+  # Write the minimal hosts.yml directly; `gh auth login --with-token` requires
+  # the `read:org` scope that classic PATs often lack, and would refuse to save.
+  printf 'github.com:\n    oauth_token: %s\n    git_protocol: https\n' "${GH_TOKEN}" \
+    > "${gh_config}/hosts.yml"
+  chmod 600 "${gh_config}/hosts.yml"
+  # Wire git's credential helper to `gh`, so `git push`/`clone` share this token.
+  gh auth setup-git || true
+fi
+
 is_web=0
 if [ "${1:-}" = web ] || { [ "${1:-}" = --profile ] && [ "${2:-}" = web ]; }; then
   is_web=1

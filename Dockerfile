@@ -50,6 +50,7 @@ ARG NODE_IMAGE
 ARG DSH_VERSION=0.2.1-alpha.2
 ARG PNPM_VERSION=10.15.1
 ARG CHROMIUM_FLAVOR=debian
+ARG GH_CLI_VERSION=2.102.0
 ARG UNGOOGLED_CHROMIUM_VERSION=152.0.7977.82-1
 ARG UNGOOGLED_CHROMIUM_AMD64_SHA256=2c6e464e030f87145e42553c5aa539f6e62163ce677d3eace3c51b4fcbd5e347
 ARG UNGOOGLED_CHROMIUM_ARM64_SHA256=1909f42dcc3661bc213f2cf3b5232a9d3c850913b36efa7267ed6499f6cbf87d
@@ -95,6 +96,13 @@ RUN set -eux; \
       xterm \
       xvfb \
       zip; \
+    gh_arch="$(dpkg --print-architecture)"; \
+    curl --fail --location --retry 3 \
+      "https://github.com/cli/cli/releases/download/v${GH_CLI_VERSION}/gh_${GH_CLI_VERSION}_linux_${gh_arch}.tar.gz" \
+      --output /tmp/gh.tgz; \
+    tar --extract --gzip --file /tmp/gh.tgz --directory /tmp; \
+    mv "/tmp/gh_${GH_CLI_VERSION}_linux_${gh_arch}/bin/gh" /usr/local/bin/gh; \
+    rm -rf /tmp/gh.tgz "/tmp/gh_${GH_CLI_VERSION}_linux_${gh_arch}"; \
     if [ "${CHROMIUM_FLAVOR}" = debian ]; then \
       apt-get install --yes --no-install-recommends chromium; \
     else \

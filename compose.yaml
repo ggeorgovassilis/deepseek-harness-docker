@@ -27,6 +27,11 @@ services:
       DSH_WEB_RELAY_INTERFACE: ${DSH_WEB_RELAY_INTERFACE:-}
       DSH_DESKTOP_PUBLIC_PORT: ${DSH_DESKTOP_PORT:-6080}
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      GH_TOKEN: ${GH_TOKEN:-}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      # gh reads its token from this file (see entrypoint) because DSH scrubs
+      # *TOKEN* env vars from agent shells. Lives in the dsh-home volume.
+      GH_CONFIG_DIR: /home/node/.dsh/gh
       HOME: /workspace
     volumes:
       - dsh-home:/home/node/.dsh
