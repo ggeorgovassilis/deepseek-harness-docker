@@ -4,7 +4,7 @@ ARG NODE_IMAGE=docker.io/library/node:24-trixie
 FROM ${NODE_IMAGE} AS installer
 
 ARG DSH_VERSION=0.2.1-alpha.2
-ARG PNPM_VERSION=10.15.1
+ARG PNPM_VERSION=11.19.0
 
 # node-pty publishes prebuilds for only some Linux architectures. Keep the
 # installer requirements explicit so linux/arm64 can fall back to node-gyp,
@@ -48,7 +48,7 @@ FROM ${NODE_IMAGE}
 
 ARG NODE_IMAGE
 ARG DSH_VERSION=0.2.1-alpha.2
-ARG PNPM_VERSION=10.15.1
+ARG PNPM_VERSION=11.19.0
 ARG CHROMIUM_FLAVOR=debian
 ARG GH_CLI_VERSION=2.102.0
 ARG UNGOOGLED_CHROMIUM_VERSION=152.0.7977.82-1
@@ -311,8 +311,8 @@ RUN chmod 0755 /usr/local/bin/chromium-docker \
       /usr/local/lib/node_modules/@deepseek-ai/dsh/node_modules/@runzhliu/dsh-browser-desktop \
     && ln -s /usr/local/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/schemastery \
       /opt/deepseek-harness/plugins/dsh-browser-desktop/node_modules/@deepseek-ai/schemastery \
-    && ln -s ../lib/node_modules/pnpm/bin/pnpm.cjs /usr/local/bin/pnpm \
-    && ln -s ../lib/node_modules/pnpm/bin/pnpx.cjs /usr/local/bin/pnpx \
+    && ln -s ../lib/node_modules/pnpm/bin/pnpm.mjs /usr/local/bin/pnpm \
+    && ln -s ../lib/node_modules/pnpm/bin/pnpx.mjs /usr/local/bin/pnpx \
     && ln -s chromium-docker /usr/local/bin/chrome \
     && ln -s chromium-docker /usr/local/bin/google-chrome \
     && ln -s chromium-docker /usr/local/bin/google-chrome-stable \

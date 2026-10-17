@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+- Upgrade the bundled package manager to `pnpm@11.19.0` and point the `pnpm`/`pnpx` shims at the executable `bin/*.mjs` entry points so pinned-pnpm workspaces (e.g. `packageManager: pnpm@11.19.0`) no longer self-download a second copy into the non-executable tmp data dir.
+
 ## 0.1.20 - 2026-10-09
 
 - Adapt to upstream rejecting wildcard listeners at the configuration layer: keep DSH on loopback and relay one concrete container interface without rewriting authentication or modifying upstream source. Add address-selection, byte-preservation, half-close, and actual listener-boundary tests.

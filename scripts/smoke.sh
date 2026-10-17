@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 image="${1:-runzhliu/deepseek-harness:0.2.1-alpha.2-r1}"
 expected_version="${2:-0.2.1-alpha.2}"
-expected_pnpm_version="${3:-10.15.1}"
+expected_pnpm_version="${3:-11.19.0}"
 expected_market_version="${4:-}"
 expected_chromium_flavor="${5:-debian}"
 expected_ungoogled_version="${6:-}"
@@ -312,7 +312,7 @@ for attempt in $(seq 1 30); do
           fs.mkdirSync(`${root}/local-package`)
           fs.writeFileSync(`${root}/local-package/package.json`, "{\"name\":\"local-package\",\"version\":\"1.0.0\"}\n")
           fs.writeFileSync(`${root}/profiles/web/package.json`, "{\"name\":\"market-repair-smoke\",\"private\":true,\"dependencies\":{\"local-package\":\"file:../../local-package\"}}\n")
-          fs.writeFileSync(`${modules}/.modules.yaml`, "storeDir: /tmp/old-pnpm-store/v11\n")
+          fs.writeFileSync(`${modules}/.modules.yaml`, "storeDir: /tmp/old-pnpm-store/v10\n")
           fs.mkdirSync(`${root}/unmanaged-plugin`)
           fs.symlinkSync(`${root}/unmanaged-plugin`, `${modules}/unmanaged-plugin`)
         '
@@ -327,7 +327,7 @@ for attempt in $(seq 1 30); do
           const root = process.env.DSH_HOME
           const metadata = fs.readFileSync(`${root}/profiles/web/node_modules/.modules.yaml`, "utf8")
           const backups = fs.readdirSync(`${root}/backups`)
-          if (!metadata.includes("/tmp/dsh-market-repair-store/v10")) process.exit(1)
+          if (!metadata.includes("/tmp/dsh-market-repair-store/v11")) process.exit(1)
           if (fs.readlinkSync(`${root}/profiles/web/node_modules/unmanaged-plugin`) !== `${root}/unmanaged-plugin`) process.exit(1)
           if (!fs.existsSync(`${root}/profiles/web/node_modules/local-package/package.json`)) process.exit(1)
           if (backups.length !== 1 || !fs.existsSync(`${root}/backups/${backups[0]}/node_modules/.modules.yaml`)) process.exit(1)
