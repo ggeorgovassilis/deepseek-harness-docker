@@ -10,6 +10,7 @@ Before opening a pull request:
 4. Test native dependencies on both `linux/amd64` and `linux/arm64` when changing Node, Debian, npm, or DSH versions.
 5. Update both `README.md` and `README.en.md` when behavior or commands change.
 6. Keep `plugins/dsh-browser-desktop` publishable on its own: run `make plugin-check`, avoid container-only imports, and document any new companion-service requirement.
+7. When following an upstream release, refresh the README screenshots from the tested version in Light mode. Use an isolated demo container without private models, credentials, or sessions; visually inspect the captures and update the version/date captions in both READMEs. Do not present an older screenshot as the current release.
 
 The optional ungoogled-chromium build must keep its version and per-architecture SHA256 values pinned. Do not replace its contributor artifacts, advance their version, or add another architecture without re-running the full browser/noVNC smoke test and reviewing the upstream artifact source. The Debian Chromium image remains the default unless the project's supply-chain policy changes explicitly.
 

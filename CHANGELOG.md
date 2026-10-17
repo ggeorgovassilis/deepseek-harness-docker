@@ -6,6 +6,44 @@ All notable changes to this project are documented here.
 
 - Upgrade the bundled package manager to `pnpm@11.19.0` and point the `pnpm`/`pnpx` shims at the executable `bin/*.mjs` entry points so pinned-pnpm workspaces (e.g. `packageManager: pnpm@11.19.0`) no longer self-download a second copy into the non-executable tmp data dir.
 
+## 0.1.25 - 2026-10-17
+
+- Upgrade the official runtime and Browser Use packages to `@deepseek-ai/dsh@0.2.1-rc.2`, with immutable container revision `0.2.1-rc.2-r1` and Helm chart `0.1.25`.
+- Include upstream DeepSeek-V4.1-Flash-1017 support and opt-in DeepSeek Search / Fetch APIs in Web Search settings; do not enable these APIs or change provider credentials automatically.
+- Refresh all three README screenshots from a real, isolated RC2 Light-theme demo, and update their capture provenance: the start page, optional community market, and browser desktop showing the official RC2 Release.
+- Retain browser-desktop `0.1.5`, optional market `1.66.9`, pinned ungoogled-chromium `152.0.7977.82-1`, and the existing authentication, loopback/LAN, and sandbox boundaries without modifying upstream source.
+
+## 0.1.24 - 2026-10-17
+
+- Upgrade the official runtime and Browser Use packages to `@deepseek-ai/dsh@0.2.1-rc.1`, with immutable container revision `0.2.1-rc.1-r1` and Helm chart `0.1.24`.
+- Track the first 0.2.1 release candidate, which consolidates this cycle's changes; the delta from alpha.5 primarily updates Cordis, HMR, loader, and related vendor dependencies.
+- Require release maintenance to refresh Light-theme README screenshots from an isolated, tested container and accurately label their runtime version and capture date.
+- Refresh all three README screenshots from a real RC1 demo: the start page, the optional community market, and the browser desktop showing the official RC1 Release.
+- Retain the browser desktop, optional community market, privacy and bubblewrap variants, and existing authentication and network boundaries without modifying upstream source.
+
+## 0.1.23 - 2026-10-17
+
+- Upgrade the official runtime and Browser Use packages to `@deepseek-ai/dsh@0.2.1-alpha.5`, with immutable container revision `0.2.1-alpha.5-r1` and Helm chart `0.1.23`.
+- Include upstream fixes for stale skill lists after plugin toggles, redundant terminal queries and failed-terminal retries, and Page Up layout shifts on Windows and Linux.
+- Include improved PTC Mode guidance, aligned model identity prompts across SDK, Web and headless, and the `conversation.input.model.label` Slot for provider-specific model labels.
+- Retain browser-desktop `0.1.5`, optional market `1.66.9`, pinned ungoogled-chromium `152.0.7977.82-1`, and the existing loopback/LAN access model without modifying upstream source.
+
+## 0.1.22 - 2026-10-16
+
+- Upgrade the official runtime and Browser Use packages to `@deepseek-ai/dsh@0.2.1-alpha.4`, with immutable container revision `0.2.1-alpha.4-r1` and Helm chart `0.1.22`.
+- Include UI-configured reasoning levels for custom API models and plugin discovery through custom index sources.
+- Include upstream fixes for command input, Developer Tools activation, command failure status, and Office delivery, plus faster Linux command startup and older-systemd compatibility.
+- Document `engines.dsh` taking precedence for third-party plugin compatibility, with the existing rules retained when it is absent.
+- Retain browser-desktop `0.1.5`, optional market `1.66.9`, pinned ungoogled-chromium `152.0.7977.82-1`, and the existing loopback/LAN access model.
+
+## 0.1.21 - 2026-10-15
+
+- Upgrade the official runtime and Browser Use packages to `@deepseek-ai/dsh@0.2.1-alpha.3`, with immutable container revision `0.2.1-alpha.3-r1` and Helm chart `0.1.21`.
+- Include upstream local-HTTP account sign-in, sent-message key masking, Minimal-mode image reading and compaction, and fixes for session continuation, plugin reloads, remote Web preferences, and terminals.
+- Document the Headless credential-source change, Azure provider rename, and destructive custom-profile recreation flag.
+- Highlight the project's early unofficial Docker packaging and ongoing maintenance since August 13, 2026, with a link to the initial commit in both READMEs.
+- Retain the supervised concrete-address relay, browser-desktop `0.1.5`, optional market `1.66.9`, pinned ungoogled-chromium `152.0.7977.82-1`, and historical screenshot dates.
+
 ## 0.1.20 - 2026-10-09
 
 - Adapt to upstream rejecting wildcard listeners at the configuration layer: keep DSH on loopback and relay one concrete container interface without rewriting authentication or modifying upstream source. Add address-selection, byte-preservation, half-close, and actual listener-boundary tests.
