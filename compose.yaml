@@ -40,6 +40,8 @@ services:
     volumes:
       - dsh-home:/home/node/.dsh
       - ${DSH_WORKSPACE:-dsh-workspace}:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/local/bin/docker:ro
       # The VS Code extension addresses DSH by host filesystem paths. Bind the
       # host workspace at the SAME absolute path so those paths resolve inside
       # the container. Leave unset if you do not use the extension.
@@ -70,7 +72,7 @@ services:
       timeout: 3s
       start_period: 20s
       retries: 3
-
+    group_add: [984]
 volumes:
   dsh-home:
   dsh-workspace:
