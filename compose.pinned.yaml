@@ -1,0 +1,14 @@
+# Opt-in override that pins the runtime image by content digest.
+#
+# `docker compose build` cannot coexist with a digest in the image reference
+# (Docker refuses to tag a build output with a digest), so the base compose.yaml
+# keeps a plain tag and this file re-declares the image with a digest for the
+# PULL-ONLY workflow. Do not use `build` together with this file.
+#
+# Usage (pull the immutable published image instead of building from source):
+#   docker compose -f compose.yaml -f compose.pinned.yaml pull
+#   docker compose -f compose.yaml -f compose.pinned.yaml up -d
+services:
+  deepseek-harness:
+    image: ${DSH_IMAGE_REPOSITORY:-docker.io/runzhliu/deepseek-harness}:${DSH_IMAGE_VERSION:-0.2.1-rc.2-r1}@${DSH_IMAGE_DIGEST:?DSH_IMAGE_DIGEST must be set when using compose.pinned.yaml}
+    pull_policy: always
