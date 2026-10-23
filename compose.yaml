@@ -69,9 +69,9 @@ services:
         - -e
         - "Promise.all([fetch('http://127.0.0.1:3080/'), fetch('http://127.0.0.1:6080/vnc.html'), fetch('http://127.0.0.1:9222/json/version')]).then(([web, desktop, cdp]) => { if (web.status !== 401 || !desktop.ok || !cdp.ok) process.exit(1) }).catch(() => process.exit(1))"
       interval: 15s
-      timeout: 3s
+      timeout: 10s
       start_period: 20s
-      retries: 3
+      retries: 5
     group_add: [984]
 volumes:
   dsh-home:
