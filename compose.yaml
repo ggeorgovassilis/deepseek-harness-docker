@@ -2,6 +2,11 @@ services:
   deepseek-harness:
     build:
       context: .
+      # Tags the locally built image WITHOUT the content digest (Docker refuses
+      # to tag a build output with a digest). The runtime `image:` below keeps
+      # the digest so `pull`/`up` stay pinned to the immutable content.
+      tags:
+        - ${DSH_IMAGE_REPOSITORY:-docker.io/runzhliu/deepseek-harness}:${DSH_IMAGE_VERSION:-0.2.1-rc.2-r1}
       args:
         DSH_VERSION: ${DSH_VERSION:-0.2.1-rc.2}
         IMAGE_VERSION: ${DSH_IMAGE_VERSION:-0.2.1-rc.2-r1}
