@@ -39,12 +39,20 @@ jobs:
         run: |
           [[ "${DSH_UI_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-+][0-9A-Za-z.-]+)?$ ]]
           [[ "${DSH_UI_REVISION}" =~ ^r[1-9][0-9]*$ ]]
-      - name: Install pinned screenshot browser and CJK fonts
+      - name: Install pinned Playwright
         run: |
-          npm install --prefix "${RUNNER_TEMP}/dsh-ui-capture" --ignore-scripts --no-audit --no-fund --save-exact "playwright@${PLAYWRIGHT_VERSION}"
-          "${RUNNER_TEMP}/dsh-ui-capture/node_modules/.bin/playwright" install --with-deps chromium
-          sudo apt-get install --yes --no-install-recommends fonts-noto-cjk
+          npm install --prefix "${RUNNER_TEMP}/dsh-ui-capture" --ignore-scripts --no-audit --no-fund --save-exact --fetch-retries=1 --fetch-timeout=30000 "playwright@${PLAYWRIGHT_VERSION}"
           echo "DSH_UI_PLAYWRIGHT_MODULE=${RUNNER_TEMP}/dsh-ui-capture/node_modules/playwright" >> "${GITHUB_ENV}"
+      - name: Use runner Chrome and ensure CJK fonts
+        run: |
+          browser="$(command -v google-chrome || command -v chromium || true)"
+          test -n "${browser}" || { echo 'The runner must provide a maintained Chrome or Chromium.' >&2; exit 1; }
+          "${browser}" --version
+          echo "DSH_UI_BROWSER_EXECUTABLE=${browser}" >> "${GITHUB_ENV}"
+          if ! command -v fc-list >/dev/null || [[ -z "$(fc-list :lang=zh)" ]]; then
+            sudo apt-get -o Acquire::Retries=1 update
+            sudo apt-get -o Acquire::Retries=1 install --yes --no-install-recommends fontconfig fonts-noto-cjk
+          fi
       - name: Start a published image with temporary state only
         run: |
           image="docker.io/runzhliu/deepseek-harness:${DSH_UI_VERSION}-${DSH_UI_REVISION}-market.1"
