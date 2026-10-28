@@ -1,10 +1,10 @@
 {
-  "capturedAt": "2026-10-26T01:53:27.807Z",
-  "runtimeVersion": "0.2.1-rc.3",
+  "capturedAt": "2026-10-28T04:05:15.414Z",
+  "runtimeVersion": "0.2.2-alpha.2",
   "marketVersion": "1.66.9",
-  "imageReference": "docker.io/runzhliu/deepseek-harness:0.2.1-rc.3-r1-market.1",
-  "imageId": "sha256:f3494362a22f3e51f8516ccde726336a7e9c9ce7f1d552f39f1c5542c647225b",
-  "sourceRevision": "152695653bb3b9226440f977006d7f1a30d7b456",
+  "imageReference": "docker.io/runzhliu/deepseek-harness:0.2.2-alpha.2-r1-market.1",
+  "imageId": "sha256:3ec015525ee21f6ddfd425c25f60ff3b119bd9c84c6ef04fb0a2be50cd7cd159",
+  "sourceRevision": "55f5c04bdda7f4c2bdf1fa511db924e0dec4f98f",
   "browserVersion": "155.0.8059.39",
   "viewport": {
     "width": 1440,
@@ -15,7 +15,7 @@
   "modelConfigured": false,
   "modelRequestsMade": false,
   "checks": [
-    "authenticated provider directory",
+    "authenticated model catalog RPC",
     "navigation More menu",
     "market catalogue compatibility metadata",
     "live noVNC canvas",

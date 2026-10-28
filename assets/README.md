@@ -1,19 +1,19 @@
 # Assets
 
-All three screenshots were captured on **2026-10-26**, using the actual **DSH 0.2.1-rc.3** Web UI in **Light** mode at **1440 × 900** pixels. Playwright controlled the maintained Chrome on an isolated Ubuntu CI runner to capture a clean, temporary market-variant container; the user's existing deployment, model configuration, workspaces, and sessions were not used or changed.
+All three screenshots were captured on **2026-10-28**, using the actual **DSH 0.2.2-alpha.2** Web UI in **Light** mode at **1440 × 900** pixels. Playwright controlled the maintained Chrome on an isolated Ubuntu CI runner to capture a clean, temporary market-variant container; the user's existing deployment, model configuration, workspaces, and sessions were not used or changed.
 
 | Asset | Image / component | View |
 | --- | --- | --- |
-| `deepseek-harness-web.png` | `runzhliu/deepseek-harness:0.2.1-rc.3-r1-market.1` | New-session page with an empty `demo-project` workspace, Plugins, More, and Automation tasks. The core Web UI is shared with the default image. |
-| `browser-desktop-webui.png` | Same market image; `@runzhliu/dsh-browser-desktop@0.1.5` | Real container Chromium opening the public official `dsh-v0.2.1-rc.3` GitHub Release inside the movable, resizable desktop panel. |
+| `deepseek-harness-web.png` | `runzhliu/deepseek-harness:0.2.2-alpha.2-r1-market.1` | New-session page with an empty `demo-project` workspace, Plugins, More, and Automation tasks. The core Web UI is shared with the default image. |
+| `browser-desktop-webui.png` | Same market image; `@runzhliu/dsh-browser-desktop@0.1.6` | Real container Chromium opening the public official `dsh-v0.2.2-alpha.2` GitHub Release inside the movable, resizable desktop panel. |
 | `plugin-market-webui.png` | Same market image; `dshmarket@1.66.9` | Settings → Plugin market → Discover. This optional community market is not included in the default image. |
 
 ## Capture notes
 
-- Reproduce with the manually dispatched [`capture-readme.yml`](../.github/workflows/capture-readme.yml) workflow. These assets came from [run 40256266849](https://github.com/runzhliu/deepseek-harness-docker/actions/runs/40256266849); [`capture-provenance.json`](capture-provenance.json) records the runtime, image revision, browser version, capture time, and completed UI checks.
+- Reproduce with the manually dispatched [`capture-readme.yml`](../.github/workflows/capture-readme.yml) workflow. These assets came from [run 40630152346](https://github.com/runzhliu/deepseek-harness-docker/actions/runs/40630152346); [`capture-provenance.json`](capture-provenance.json) records the runtime, image revision, browser version, capture time, and completed UI checks.
 - Use disposable containers with temporary DSH state and an empty demonstration workspace; do not reuse personal volumes or provider credentials.
 - Accept the first-run notice, defer provider setup, select Light in Settings, and open the empty `demo-project` workspace through the normal UI.
-- For the desktop view, navigate the container's Chromium to the public upstream RC3 Release page. Move and resize the overlay with its normal controls; both Harness and the GitHub page use a light theme.
+- For the desktop view, navigate the container's Chromium to the public upstream 0.2.2-alpha.2 Release page. Move and resize the overlay with its normal controls; both Harness and the GitHub page use a light theme.
 - For the market view, wait for the catalog and compatibility indicators to load. Do not install a plugin merely to take the screenshot. Catalog entries, metrics, and compatibility indicators are a dated snapshot, not an endorsement or an installation test.
 - Capture only the page viewport, excluding the host browser's address bar and temporary launch token. Inspect each PNG for secrets, internal endpoints, private paths, and UI errors before replacing the README assets.
 

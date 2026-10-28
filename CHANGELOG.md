@@ -10,6 +10,7 @@ All notable changes to this project are documented here.
 - Include upstream plugin updates and rich descriptions, message quotes, conversation Markdown export, additional locales, and mobile, caching and Session-recovery improvements; also include the RC4 ACP diagnostic fix.
 - Document the Node.js 24.9 minimum, Session/tool/PTC integration changes, private-address Web Fetch behavior and explicit custom-model capacity requirements.
 - Extend browser-desktop `0.1.6` peer compatibility to the 0.2.2 client runtime, and require a successful model-catalog RPC response in screenshot verification.
+- Refresh all three README Light screenshots from the published 0.2.2-alpha.2 market image, captured on 2026-10-28 with versioned provenance and draft-recovery verification.
 - Retain loopback authentication, optional HTTPS LAN protection, and immutable Chromium/market pins without modifying upstream source.
 
 ## 0.1.26 - 2026-10-24
