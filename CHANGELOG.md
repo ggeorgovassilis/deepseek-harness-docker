@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## 0.1.27 - 2026-10-28
+
+- Upgrade the official runtime and matching Browser Use packages to `@deepseek-ai/dsh@0.2.2-alpha.2`, with immutable container revision `0.2.2-alpha.2-r1` and Helm chart `0.1.27`.
+- Include upstream plugin updates and rich descriptions, message quotes, conversation Markdown export, additional locales, and mobile, caching and Session-recovery improvements; also include the RC4 ACP diagnostic fix.
+- Document the Node.js 24.9 minimum, Session/tool/PTC integration changes, private-address Web Fetch behavior and explicit custom-model capacity requirements.
+- Retain loopback authentication, optional HTTPS LAN protection, and immutable Chromium/market pins without modifying upstream source.
+
 ## 0.1.26 - 2026-10-24
 
 - Upgrade the official runtime and matching Browser Use packages to `@deepseek-ai/dsh@0.2.1-rc.3`, with immutable container revision `0.2.1-rc.3-r1` and Helm chart `0.1.26`.

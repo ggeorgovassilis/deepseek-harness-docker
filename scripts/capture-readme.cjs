@@ -68,19 +68,20 @@ fs.mkdirSync(outputDir, {recursive:true});
     await page.getByRole('menuitem',{name:'demo-project',exact:true}).click();
     await page.getByRole('button',{name:'请选择模型',exact:true}).waitFor();
     const providerStatus=await page.evaluate(async()=>{
-      const r=await fetch('/api/llm/listProviders',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});
-      await r.arrayBuffer();
-      return r.status;
+      const method='session/modelCatalog';
+      const r=await fetch('/api/'+method,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({type:'client-request',rpcId:crypto.randomUUID(),method,payload:{args:{}}})});
+      const body=await r.json();
+      return {status:r.status,ok:body.result?.ok,hasGroups:Array.isArray(body.result?.value?.groups)};
     });
-    assert.equal(providerStatus,200,'authenticated loopback provider directory must not return 403');
+    assert.deepEqual(providerStatus,{status:200,ok:true,hasGroups:true},'authenticated model catalog must return a successful RPC result');
     const more=page.getByRole('navigation',{name:'全局面板',exact:true}).getByRole('button',{name:'更多',exact:true});
     await more.click();
     const entryMenu=page.getByRole('menu');
     await entryMenu.getByRole('menuitem').first().waitFor();
     const entryLabels=await entryMenu.getByRole('menuitem').allTextContents();
-    assert.equal(entryLabels.length,2,'RC3 navigation More menu should offer browsing and creation');
+    assert.equal(entryLabels.length,2,'navigation More menu should offer browsing and creation');
     assert(entryLabels.some(x=>x.includes('浏览')) && entryLabels.some(x=>x.includes('创建')));
-    console.log('RC3 navigation More menu:',entryLabels);
+    console.log('Navigation More menu:',entryLabels);
     await page.keyboard.press('Escape');
     await entryMenu.waitFor({state:'hidden'});
     await page.getByRole('button',{name:'账号菜单',exact:true}).click();
@@ -133,7 +134,7 @@ fs.mkdirSync(outputDir, {recursive:true});
     await page.screenshot({path:path.join(outputDir,'browser-desktop-webui.png')});
     await panel.getByRole('button',{name:'关闭',exact:true}).click();
     const editor=page.getByRole('textbox',{name:/描述你想要构建的内容/});
-    const draft='RC3 draft preservation check - not submitted';
+    const draft=version+' draft preservation check - not submitted';
     await editor.fill(draft);
     await page.waitForTimeout(500);
     await page.getByRole('button',{name:'添加工作区',exact:true}).click();
@@ -170,7 +171,7 @@ fs.mkdirSync(outputDir, {recursive:true});
       temporaryStateOnly:true,
       modelConfigured:false,
       modelRequestsMade:false,
-      checks:['authenticated provider directory','navigation More menu','market catalogue compatibility metadata','live noVNC canvas','unsent draft recovery']
+      checks:['authenticated model catalog RPC','navigation More menu','market catalogue compatibility metadata','live noVNC canvas','unsent draft recovery']
     },null,2)+'\n');
     console.log('UI smoke passed: authenticated Web, More menu and draft recovery, community market, noVNC canvas; no model requests');
   } finally {await browser.close();}
