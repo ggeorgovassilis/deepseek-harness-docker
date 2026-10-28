@@ -139,7 +139,7 @@ fs.mkdirSync(outputDir, {recursive:true});
     await page.waitForTimeout(500);
     await page.getByRole('button',{name:'添加工作区',exact:true}).click();
     const draftPicker=page.getByRole('dialog',{name:'选择工作区目录',exact:true});
-    await draftPicker.getByRole('button',{name:'draft-check',exact:true}).click();
+    await draftPicker.getByRole('button',{name:'draft-check',exact:true}).first().click();
     await draftPicker.getByRole('button',{name:'打开',exact:true}).click();
     await draftPicker.waitFor({state:'hidden'});
     const workspaceChoice=page.getByRole('button',{name:'选择工作区',exact:true});

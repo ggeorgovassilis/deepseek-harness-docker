@@ -302,7 +302,7 @@ npm pack ./plugins/dsh-browser-desktop --pack-destination /tmp
 dsh plugin --profile web add /tmp/runzhliu-dsh-browser-desktop-0.1.6.tgz
 ```
 
-Plugin `0.1.6` adds compatibility with the DSH `0.2.1` client-module runtime while retaining `0.1.2` and `0.2.0` compatibility; older DSH `0.1.0`/`0.1.1` release candidates should keep using plugin `0.1.1`. After npm publication, install it with `dsh plugin --profile web add @runzhliu/dsh-browser-desktop`. The npm package supplies only the Harness host/Web integration; it does not install Chromium, Xvfb, noVNC, or an official Browser Use provider. This repository's image is the complete reference runtime. Official DSH discovers community plugins through npm/GitHub and the `dsh-plugin` GitHub topic.
+Plugin `0.1.6` adds compatibility with the DSH `0.2.2` client-module runtime while retaining `0.1.2`, `0.2.0` and `0.2.1` compatibility; older DSH `0.1.0`/`0.1.1` release candidates should keep using plugin `0.1.1`. After npm publication, install it with `dsh plugin --profile web add @runzhliu/dsh-browser-desktop`. The npm package supplies only the Harness host/Web integration; it does not install Chromium, Xvfb, noVNC, or an official Browser Use provider. This repository's image is the complete reference runtime. Official DSH discovers community plugins through npm/GitHub and the `dsh-plugin` GitHub topic.
 
 ### Optional community plugin market
 

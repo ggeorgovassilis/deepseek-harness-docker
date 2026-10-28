@@ -301,7 +301,7 @@ npm pack ./plugins/dsh-browser-desktop --pack-destination /tmp
 dsh plugin --profile web add /tmp/runzhliu-dsh-browser-desktop-0.1.6.tgz
 ```
 
-`0.1.6` 插件新增对 DSH `0.2.1` client module runtime 的兼容，同时保留 `0.1.2` 与 `0.2.0` 系列兼容；旧 DSH `0.1.0`/`0.1.1` RC 应继续使用插件 `0.1.1`。发布到 npm 后可直接执行 `dsh plugin --profile web add @runzhliu/dsh-browser-desktop`。该 npm 包只负责 Harness Host/WebUI 集成，不会自行安装 Chromium、Xvfb、noVNC 或官方 Browser Use provider；本仓库 Docker 镜像是完整的参考运行时。官方 DSH 通过 npm/GitHub 和 `dsh-plugin` GitHub topic 发现社区插件。
+`0.1.6` 插件新增对 DSH `0.2.2` client module runtime 的兼容，同时保留 `0.1.2`、`0.2.0` 与 `0.2.1` 系列兼容；旧 DSH `0.1.0`/`0.1.1` RC 应继续使用插件 `0.1.1`。发布到 npm 后可直接执行 `dsh plugin --profile web add @runzhliu/dsh-browser-desktop`。该 npm 包只负责 Harness Host/WebUI 集成，不会自行安装 Chromium、Xvfb、noVNC 或官方 Browser Use provider；本仓库 Docker 镜像是完整的参考运行时。官方 DSH 通过 npm/GitHub 和 `dsh-plugin` GitHub topic 发现社区插件。
 
 ### 可选的社区插件市场
 
