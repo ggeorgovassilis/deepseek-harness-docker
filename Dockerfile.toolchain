@@ -1,0 +1,37 @@
+# syntax=docker/dockerfile:1.7
+
+# Extends the community deepseek-harness image with GitHub CLI (gh) so the
+# coding agent can authenticate and drive GitHub from inside the container.
+# The base image ships git but intentionally omits gh; the superagent variant
+# bundles it because its orchestrator needs GitHub. This is the same addition,
+# applied to the ordinary web/tui profile.
+#
+# Build and use via:
+#   docker build -f Dockerfile.toolchain -t deepseek-harness-toolchain:0.2.2-rc.1-r1 .
+#   docker compose -f compose.yaml -f compose.toolchain.yaml up -d --no-build
+ARG BASE_IMAGE=docker.io/runzhliu/deepseek-harness:0.2.2-rc.1-r1
+FROM ${BASE_IMAGE}
+
+ARG TARGETARCH
+# Pinned to match Dockerfile.superagent so both variants carry the same gh.
+ARG GH_VERSION=2.103.3
+ARG GH_AMD64_SHA256=4c806978ffce1cec70853302a56d70ac6da4f19bae7adca4e1a8ab00633dd91d
+ARG GH_ARM64_SHA256=ee32df2323c8847f5fac6cb6b4b69ca75828e9329a8f22f677021f7b3306ce63
+
+USER root
+RUN case "${TARGETARCH}" in \
+      amd64) checksum="${GH_AMD64_SHA256}";; \
+      arm64) checksum="${GH_ARM64_SHA256}";; \
+      *) echo "unsupported architecture for gh: ${TARGETARCH}" >&2; exit 1;; \
+    esac \
+    && curl --fail --location --retry 3 --output /tmp/gh.tar.gz \
+      "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_${TARGETARCH}.tar.gz" \
+    && echo "${checksum}  /tmp/gh.tar.gz" | sha256sum --check --strict - \
+    && tar --extract --gzip --file /tmp/gh.tar.gz --directory /tmp \
+      "gh_${GH_VERSION}_linux_${TARGETARCH}/bin/gh" \
+    && install -m 0755 "/tmp/gh_${GH_VERSION}_linux_${TARGETARCH}/bin/gh" /usr/local/bin/gh \
+    && rm -rf /tmp/gh.tar.gz "/tmp/gh_${GH_VERSION}_linux_${TARGETARCH}" \
+    && gh --version
+
+# Restore the non-root runtime user inherited from the base image.
+USER node
