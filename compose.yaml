@@ -17,10 +17,17 @@ services:
       DSH_BROWSER_USE_ENABLED: ${DSH_BROWSER_USE_ENABLED:-1}
       DSH_WEB_RELAY_INTERFACE: ${DSH_WEB_RELAY_INTERFACE:-}
       DSH_DESKTOP_PUBLIC_PORT: ${DSH_DESKTOP_PORT:-6080}
+      GH_CONFIG_DIR: ${GH_CONFIG_DIR}
+      GH_TOKEN: ${GH_TOKEN}
       HOME: /workspace
     volumes:
       - dsh-home:/home/node/.dsh
       - ${DSH_WORKSPACE:-dsh-workspace}:/workspace
+      # The Jabofish VS Code extension sends host filesystem paths to DSH, so
+      # the host project directory must also resolve at the same absolute path
+      # inside the container. Without this, session creation fails with
+      # "ENOENT: no such file or directory, mkdir <host path>".
+      - ${DSH_HOST_PATH:-/home/george/workspace}:/home/george/workspace
     read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid,nodev,size=512m
