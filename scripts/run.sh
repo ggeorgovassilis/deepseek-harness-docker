@@ -19,7 +19,7 @@ done
 repo_dir="$(cd -P "$(dirname "${script_path}")/.." && pwd)"
 cd "${repo_dir}"
 
-image="deepseek-harness-toolchain:0.2.2-rc.1-r1"
+image="deepseek-harness-toolchain:0.2.2-rc.3-r1"
 compose=(docker compose -f compose.yaml -f compose.toolchain.yaml)
 
 usage() {

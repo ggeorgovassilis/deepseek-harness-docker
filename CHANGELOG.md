@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here.
 
+## 0.1.30 - 2026-11-17
+
+- Upgrade DSH and matching official Browser Use packages to `0.2.2-rc.3`, with immutable container revision `0.2.2-rc.3-r1` and Helm chart `0.1.30`.
+- Include the experimental DeepSeek chat import plugin and the Windows desktop in-app update fix, on top of rc.2 worktree review, named and multi-level subagents, and Web UI improvements.
+- Retain the optional Super Agent, market, browser and sandbox variants, with the existing 0.2.2 migration guidance.
+
 ## 0.1.29 - 2026-11-05
 
 - Upgrade DSH and matching official Browser Use packages to `0.2.2-rc.1`, with immutable container revisions and Helm chart `0.1.29`.

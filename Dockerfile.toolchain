@@ -7,9 +7,9 @@
 # applied to the ordinary web/tui profile.
 #
 # Build and use via:
-#   docker build -f Dockerfile.toolchain -t deepseek-harness-toolchain:0.2.2-rc.1-r1 .
+#   docker build -f Dockerfile.toolchain -t deepseek-harness-toolchain:0.2.2-rc.3-r1 .
 #   docker compose -f compose.yaml -f compose.toolchain.yaml up -d --no-build
-ARG BASE_IMAGE=docker.io/runzhliu/deepseek-harness:0.2.2-rc.1-r1
+ARG BASE_IMAGE=docker.io/runzhliu/deepseek-harness:0.2.2-rc.3-r1
 FROM ${BASE_IMAGE}
 
 ARG TARGETARCH

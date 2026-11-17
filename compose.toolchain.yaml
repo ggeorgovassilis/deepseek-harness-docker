@@ -1,10 +1,10 @@
 # Overlay that swaps the published image for a locally built image carrying
 # GitHub CLI (gh). Build it once, then run the stack with this overlay:
-#   docker build -f Dockerfile.toolchain -t deepseek-harness-toolchain:0.2.2-rc.1-r1 .
+#   docker build -f Dockerfile.toolchain -t deepseek-harness-toolchain:0.2.2-rc.3-r1 .
 #   docker compose -f compose.yaml -f compose.toolchain.yaml up -d --no-build
 services:
   deepseek-harness:
-    image: deepseek-harness-toolchain:0.2.2-rc.1-r1
+    image: deepseek-harness-toolchain:0.2.2-rc.3-r1
     build:
       context: .
       dockerfile: Dockerfile.toolchain
